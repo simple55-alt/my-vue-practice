@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-father></my-father>
+    </div>
+    <template id="father">
+        <div>
+            <h2>我是father:{{name}},{{age}},{{hobby}},{{salary}}</h2>
+            <!-- 给子组件传递数据 prop ，子组件给父组件传递数据用 this.$emit，同时设置一个 监听事件 -->
+            <my-child :names="name" :age="age" @send-s="getData"></my-child>
+         </div>
+    </template>
+
+    <template id="child">
+        <div>
+            <h2>我是child:{{names}},{{age}}</h2>
+        </div>
+    </template>
+
+    <script>
+            new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods: {
+
+            },
+            components:{
+                'my-father':{
+                    created() {
+                        
+                    },
+                    methods: {
+                        getData(salary){
+                            this.salary=salary
+                        }
+                    },
+                    data() {
+                        return {
+                            name:'father',
+                            age:5,
+                            hobby:['c','t','r','l'],
+                            salary:null
+                        }
+                    },
+                    template:'#father',
+                    components:{
+                        'my-child':{
+                            created() {
+                                this.send()
+                            },
+                            methods: {
+                                send(){
+                                    this.$emit('send-s',this.salary)
+                                }
+                            },
+                            // props:['names'],
+                            props:{
+                                names:{
+                                    type:String,
+                                    required:true,
+                                },
+                                age:{
+                                    type:Number,
+                                    default:10,
+                                    validator:function(v){
+                                        return v>0
+                                    }
+                                },
+                                salary:{
+                                    type:Object,
+                                    default:function(){
+                                        return {'salary':1000}
+                                    }
+                                },
+                            },
+                            template:'#child'
+                        }
+                    }
+                }
+            }
+            })
+        </script>
+</body>
+</html>

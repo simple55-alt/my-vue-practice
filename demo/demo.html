@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p v-cloak>{{ message }}</p>
+    <p v-text="message"></p>
+    <div>{{message2}}</div>
+    <div v-html="message2"></div>
+    <input type="button" :value="mytitle" :title="mytitle+'123'"/>
+    <input type="button" value="点击世界" v-on:click="show">
+    <input type="button" value="鼠标事件" v-on:mouseover="show">
+    <input type="button" value="鼠标事件2" @mouseover="show">
+    
+  </div>
+
+  <div id="app2"></div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue.js!',
+        message2:'<h1>hello</h1>',
+        mytitle:'按钮BUTTON'
+      },
+      methods: {
+        show: function(){
+          alert('hello')
+        
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

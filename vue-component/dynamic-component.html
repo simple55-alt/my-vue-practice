@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="flag='my-component2'">c1</button>
+        <button @click="flag='my-component'">c1</button>
+        <!-- 缓存   keep-alive ，不用每次都要重新渲染,默认都是没次切换都要销毁未使用组件-->
+        <keep-alive>
+                <component :is="flag"></component>
+        </keep-alive>
+        
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                flag:'my-component'
+            },
+            methods: {
+
+            },
+            components: {
+                'my-component': {
+                    data() {
+                        return {
+                            x: Math.random()
+                        }
+                    },
+                    template: `<h1>1:{{x}}</h1>`
+                },
+                'my-component2': {
+                    data() {
+                        return {
+                            x: Math.random()
+                        }
+                    },
+                    template: `<h1>2:{{x}}</h1>`
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

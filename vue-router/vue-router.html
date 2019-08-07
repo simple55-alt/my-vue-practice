@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/animate.css">
+    <title>Document</title>
+    <style>
+        .router-link-active {
+            font-size: 20px;
+            color: aqua;
+
+        }
+    </style>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>欢迎使用</h1>
+        <p>
+            <router-link to="/home">首页</router-link>
+            <hr>
+            <router-link to="/user">用户信息</router-link>
+        </p>
+        <button @click="push">切换路由</button>
+        <button @click="replace">替换路由</button>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+
+    <template id="users">
+            <div>
+                <ul>
+                    <router-link to="/user/login?username=tom,password=123456" tag="li">login</router-link>
+                    <router-link to="/user/register/tony/456" tag="li">register</router-link>
+                </ul>
+                <router-view></router-view>
+            </div>
+        </template>
+
+        <template id="reg">
+            <div>
+                <p>reg</p>
+                <p>route.params{{$route.params}}</p>
+                <p>route.path{{$route.path}}</p>
+                <p>route.hash{{$route.hash}}</p>
+                <p>route.fullPath{{$route.fullPath}}</p>
+                <!-- <p>{{$route.matched}}</p> -->
+                <p>$route.name{{$route.name}}</p>
+            </div>
+        </template>
+        <template id="log">
+            <div>
+                <p>log</p>
+                <p>{{$route.query}}</p>
+            </div>
+        </template>
+    <script>
+        
+        const home = {
+            template: `<img src="./img/QQ.jpg" alt="" srcset="">`
+        }
+
+        const user = {
+            template: '#users'
+        }
+
+        const login1 = {
+            template: '#log'
+        }
+        const register1 = {
+            template: '#reg'
+        }
+
+
+        const routes = [{
+                path: '/home',
+                component: home
+            },
+            {
+                path: '/user',
+                component: user,
+                children: [{
+                        path: 'login',
+                        component: login1
+                    },
+                    {
+                        path: 'register/:username/:password',
+                        component: register1
+                    }
+                ]
+            },
+            {
+                path: '*',
+                redirect: '/home'
+            }
+        ]
+
+        const router = new VueRouter({
+            routes: routes
+        })
+
+        new Vue({
+            el: '#app',
+            router,
+            methods: {
+                push(){
+                    router.push({path:'home'})
+                },
+                replace(){
+                    router.replace(
+                        {path:'user'}
+                    )
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

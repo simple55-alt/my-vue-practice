@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script src="./node_modules/axios/dist/axios.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="send">send</button>
+
+        <table>
+            <tr v-for="(object, index) in list" :key="index">
+                <td>{{object.id}}</td>
+                <td>{{object.name}}</td>
+                <td>{{object.ctime}}</td>
+                <td>
+                    <a href="#" @click.prevent="del(object.id)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                list:[]
+            },
+            methods: {
+                send(){
+                    axios.post('http://127.0.0.1:8088/page/adduser','id=1&name="anxing"&age=15'
+                        )
+                    .then(
+                        resp=>{
+                           
+                            this.list=resp.data.message
+                        }
+                    ).catch(resp=>{
+                        console.log(resp);
+                    })
+                }
+            },
+          
+        })
+    </script>
+</body>
+
+</html>

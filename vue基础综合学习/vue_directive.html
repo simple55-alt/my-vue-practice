@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        #app .div1{
+            background-color: aqua;
+            top: 0;
+            left: 0;
+        }
+        #app .div2{
+            background-color: crimson;
+            top: 0;
+            right:0;
+        }
+    </style>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="div1" v-move></div>
+        <div class="div2" v-move></div>
+    </div>
+    <script>
+        Vue.directive('move',function(el){
+            el.onmousedown=function(e){
+                var x=e.clientX-el.offsetLeft
+                var y=e.clientY-el.offsetTop
+                document.onmousemove=function(e){
+                    var yy=e.clientY-y
+                    var xx=e.clientX-x                
+                    el.style.top=yy+'px'
+                    el.style.left=xx+'px'
+            }
+            }
+            el.onmouseup=function(){
+                document.onmousedown=null
+                document.onmousemove=null
+            } 
+        })
+
+        Vue.directive('move1',function(el){
+            el.onmousedown=function(e){
+                
+                document.onmousemove=function(e){
+                    var yy=e.clientY-e.offsetY
+                    var xx=e.clientX-e.offsetX
+                    console.log(e.clientX+'__'+e.offsetX);    
+                    console.log(yy+'_'+xx);       
+                    el.style.top=e.clientY+'px'
+                    el.style.left=e.clientX+'px'
+            }
+            }
+            el.onmouseup=function(){
+                document.onmousedown=null
+                document.onmousemove=null
+            } 
+        })
+
+            new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods: {
+
+            },
+            })
+        </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <style>
+        .red{
+         color: red
+        }
+        .yellow{
+            font-size: 100px
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- <h1 :class="red">11111111</h1>
+        <h1 :class="[red,yellow]">11111111</h1> -->
+        <h1 :class="{
+            red:num>0,yellow:flag
+        }">11111111</h1>
+
+        <h2 :style="[xx,yy]">11111</h2>
+      
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+              num:1,
+              flag:true,
+              xx:'size: 50px',
+              yy:" background-color: aquamarine"
+            },
+            methods: {
+                
+            },
+        })
+
+    </script>  
+</body>
+</html>

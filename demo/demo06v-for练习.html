@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p v-for="item in list">{{item}}</p>
+        <p v-for="(item, index) in list">{{index}}++++++{{item}}</p>
+        <p v-for="(item, index) in list02">索引：{{index}}+++id：{{item.id}}+++名字：{{item.name}}</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [1, 2, 3, 4, 5],
+                list02: [{
+                        id: 1,
+                        name: 'zhansa1'
+                    },
+                    {
+                        id: 2,
+                        name: 'zhansa2'
+                    },
+                    {
+                        id: 3,
+                        name: 'zhansa3'
+                    },
+                    {
+                        id: 4,
+                        name: 'zhansa4'
+                    },
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

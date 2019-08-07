@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <counter :num="count" @addd="add" @dell="del"></counter>
+    </div>
+
+    <script>
+        const counter = {
+            template: `
+        <div>
+            <button @click="inc">+</button>
+            <button @click="dec">-</button>
+            <h1>{{num}}</h1>
+        </div>
+        `,
+            props: ['num'],
+            methods: {
+                inc() {
+                    this.$emit('addd')
+                },
+                dec() {
+                    this.$emit('dell')
+                }
+            },
+        }
+        const vw = new Vue({
+            el: '#app',
+            data: {
+                count: 10,
+            },
+            components: {
+                counter,
+            },
+            methods: {
+                add() {
+                    this.count++;
+                },
+                del() {
+                    this.count--;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

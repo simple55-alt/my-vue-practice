@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="update">update</button>
+        <button @click="addPro">addPro</button>
+        <button @click="del">del</button>
+        <input type="text" name="" id="" v-model="data">
+        <input type="text" name="" id="" v-model="user.name">
+        <ol>
+            <li>{{user.age}}</li>
+            <li>{{user.name}}</li>
+            <li>{{user.id}}</li>
+        </ol>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                user: {
+                    name: 'tom',
+                    age: 18,
+                },
+                data: ''
+            },
+            methods: {
+                update() {
+                    this.user.name = 'tony'
+                },
+                addPro() {
+                    this.$set(this.user, 'id', 100)
+                },
+                del() {
+                    this.$delete(this.user, 'age')
+                }
+            },
+            watch: {
+                data: (newV, oldV) => {
+                    console.log('newV :', newV);
+                    console.log('oldV :', oldV);
+                },
+                user: {
+                    handler: (n,o) => {
+                        console.log('n :', n);
+                        console.log('o :', o);
+                    },
+                    deep: true,
+                }
+            },
+        })
+        vm.$watch('user', (n, o) => {
+            console.log('n :', n);
+            console.log('o :', o);
+        })
+    </script>
+</body>
+
+</html>

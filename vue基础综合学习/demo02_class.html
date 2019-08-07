@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 :style="{color: 'red', 'font-size': '40px'}">这是一个善良的H1</h1>
+
+        <h1  v-font="1000">这是一个善良的H2</h1>
+        <h1 :style=" h1StyleObj2">这是一个帅气的人</h1>
+
+
+        <input type="text" name="" id="" v-model="name" @keyup.f1="add" v-focus v-color="'red'">
+        <a href="#" @click.prevent="add()">添加</a>
+        <table>
+            <tr>
+                <td>id</td>
+                <td>name</td>
+                <td>time</td>
+               
+            </tr>
+            <tr v-for="(item, index) in list" :key="index">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime|data('')}}</td>
+                <td>
+                    <a href="#" @click.prevent="del(item.id)">删除</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        Vue.directive('focus',{
+            bind:function(){}, //在 未渲染之前 执行
+            inserted:function(el){
+                //这个el是一个原生的dom对象
+                el.focus()
+            },//在渲染的之后执行
+            updated:function(){},//在 更新数据的时候执行
+        })
+
+        Vue.directive('color',{
+            bind:function(el,binding){
+            //    name：指令名，不包括 v- 前缀。
+            // value：指令的绑定值，例如：v-my-directive="1 + 1" 中，绑定值为 2。
+            // expression：字符串形式的指令表达式。例如 v-my-directive="1 + 1" 中，表达式为 "1 + 1"。
+                el.style.color=binding.value
+            }
+        })
+        Vue.config.keyCodes.f1 = 112
+        Vue.filter(
+            'timeFormate',function(ctime,patten){
+                let date=new Date(ctime)
+                let y=date.getFullYear()
+                let m=(date.getMonth()+1).toString().padStart(2,'0')
+                let d=date.getDate()
+                if(patten&&patten.toLowerCase()=='yyyy-MM-dd'){
+
+                    return `${y}-${m}-${d}`
+                }else{
+                    let h=date.getHours().toString().padStart(2,'0')
+                    let mm=date.getMinutes().toString().padStart(2,'0')
+                    let s=date.getSeconds().toString().padStart(2,'0')
+
+                    return `${y}-${m}-${d}  ${h}:${mm}:${s}`
+
+                }
+                
+            }
+        )
+
+        new Vue({
+            el: '#app',
+            data: {
+                items: [1, 2, 3, 4, 5],
+                h1StyleObj: {
+                    color: 'red',
+                    'font-size': '40px',
+                    'font-weight': '200'
+                },
+                h1StyleObj2: {
+                    fontStyle: 'italic'
+                },
+                h3: {},
+                list: [{
+                        id: 1,
+                        name: '奔驰',
+                        ctime: new Date()
+                    },
+                    {
+                        id: 2,
+                        name: '宝马',
+                        ctime: new Date()
+                    }
+                ],
+                name:null,
+            },
+
+            methods: {
+                del(did) {
+                    let ok = confirm("确定要删除吗");
+                    if (ok) {
+                        for (const {
+                                id,
+                                name,
+                                ctime
+                            } of this.list) {
+                            if (id == did) {
+                                console.log(id);
+                                this.list.splice(id - 1, 1);
+                            }
+                        }
+                    }else{
+                        return;
+                    }
+                },
+                add(){
+                    this.list.push(
+                        {
+                            id: this.list.length+1,
+                            name:this.name,
+                            ctime:new Date()
+                        }
+                    )
+                }
+            },
+            filters:{
+                // ctime 是 过滤的值；pattern是参数
+                data(ctime,patten){
+                let date=new Date(ctime)
+                let y=date.getFullYear()
+                let m=(date.getMonth()+1).toString().padStart(2,'0')
+                let d=date.getDate()
+                if(patten&&patten.toLowerCase()=='yyyy-MM-dd'){
+                    return `${y}-${m}-${d}`
+                }else{
+                    let h=date.getHours().toString().padStart(2,'0')
+                    let mm=date.getMinutes().toString().padStart(2,'0')
+                    let s=date.getSeconds().toString().padStart(2,'0')
+                    return `${y}-${m}-${d}  ${h}:${mm}:${s}`
+                }
+            }
+            },
+            directives:{
+                'font':{
+                    bind:function(el,binding){
+                        el.style.fontWeight=binding.value
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

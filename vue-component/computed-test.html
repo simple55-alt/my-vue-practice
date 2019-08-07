@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{newAge}}</p>
+        <p>{{newArr2}}</p>
+        <h1>{{newArr}}</h1>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                age: 18,
+                arr: [11, 22, 33, 43, 54]
+            },
+            methods: {
+
+            },
+            computed: {
+                newAge() {
+                    return this.age + 1
+                },
+                newArr() {
+                    return this.arr.filter(
+                        function (value) {
+                            console.log('this :', this);
+                            return value % this == 0 ? true : false
+                        }, 11)
+                },
+                newArr2() {
+                    return this.arr.filter(
+                        value => {
+                            console.log('this :', this);
+                            return value % this == 0 ? true : false
+                        }, 11)
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

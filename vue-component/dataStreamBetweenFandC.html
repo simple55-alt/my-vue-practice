@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="msg">
+        <h1>root:{{msg}},,{{user.age}}</h1>
+        <my-child :msg.sync="msg" :user="user"></my-child>
+    </div>
+    <template id="child" >
+        <div>
+            <p>child:{{msg}},,{{user.age}}</p>
+            <button @click="change">change</button>
+        </div>
+    </template>
+    <script>
+            new Vue({
+            el:'#app',
+            data:{
+                msg:'',
+                user:{
+                    age:18,
+                    name:'tony'
+                }
+            },
+            methods: {
+                
+            },
+            components:{
+                'my-child':{
+                    template:'#child',
+                    props:['msg','user'],
+                    data() {
+                        return {
+                            new_msg:this.msg
+                        }
+                    },
+                    methods: {
+                        change(){
+                           this.$emit('update:msg', 'tom')
+                           this.user.age=11
+                        }
+                    },
+                }
+            }
+            })
+        </script>
+</body>
+</html>

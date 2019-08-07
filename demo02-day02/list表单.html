@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js">
+
+    </script>
+
+    <script>
+        axios.get('https://www.easy-mock.com/mock/5d1f628c2afbd075949481b6/example/restful/:id/list', {
+                params: {
+                    name: '111',
+                    age: 12
+                }
+            })
+            .then(response => {
+                let {
+                    data
+                } = response;
+                console.log(1)
+                console.log(data);
+                return axios.post('https://www.easy-mock.com/mock/5d1f628c2afbd075949481b6/example/upload');
+            }).then(result=>{
+                let{data}=result;
+                console.log(2)
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+
+        let sendAry=[
+        axios.get('https://www.easy-mock.com/mock/5d1f628c2afbd075949481b6/example/restful/:id/list'),
+        axios.post('https://www.easy-mock.com/mock/5d1f628c2afbd075949481b6/example/upload')
+        ]
+        axios.all(sendAry).then(result=>{
+            console.log(3)
+            console.log(result)
+        })
+
+        axios.all(sendAry).then(axios.spread(
+            (resa,resb)=>{
+                console.log(4)
+                console.log(resa)
+                console.log(resb)           
+            }
+        ))
+    </script>
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+</body>
+
+</html>

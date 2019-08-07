@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <h1 >{{birth}}</h1>
+        <input type="text" value="" v-model="num">
+        <input type="button" @click="num++" value="敲击他">
+        <h1 v-text="name">,非常帅</h1>
+        <h1>{{num}}位美女,为你着迷</h1>
+
+        <div>
+            <h1>请选择你喜欢的girl：</h1>
+            <input type="checkbox" name="" id="" v-model="like_girl" value="范冰冰">范冰冰<br>
+            <input type="checkbox" name="" id="" v-model="like_girl" value="赵丽颖">赵丽颖<br>
+            <input type="checkbox" name="" id="" v-model="like_girl" value="陈钰琪">陈钰琪<br>
+            <input type="checkbox" name="" id="" v-model="like_girl" value="阿冷">阿冷<br>
+            <h1>您已选择{{like_girl.join("、")}}</h1>
+
+        </div>
+
+        <div>
+            <h1>你不喜欢的人</h1>
+            请选择<select name="" id="" v-model="dislike_gir">
+                <option value="恶心心">恶心心</option>
+                <option value="真恶心" selected="selected">真恶心</option>
+                <option value="不喜欢">不喜欢</option>
+                <option value="真不喜欢">真不喜欢</option>
+            </select>
+            <h1>你不喜欢的人:{{dislike_gir}}</h1>
+        </div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                name: '樊浩东',
+                num: 1,
+                like_girl: [],
+                dislike_gir: null,
+                birthday: 1562509044187,
+                person:{
+                    name:'hello',
+                    age:15
+                }
+            },
+            computed: {
+                birth(){
+                    const day= new Date(this.birthday)
+                    return day.getFullYear()+"-"+day.getMonth()+"-"+day.getDate()
+                },
+            },
+            watch: {
+                like_girl(val){
+                    console.log(val)
+                },
+                person:{
+                    deep:true,
+                    handler(val){
+                        console.log(val.age)
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

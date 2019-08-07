@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    table
+  {
+  border-collapse:collapse;
+  }
+
+table,th, td
+  {
+  border: 1px solid black;
+  }
+    </style>
+    <script src="./lib/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input type="text" v-model="id">id<br>
+            <input type="text" v-model="name"> name<br>
+            <input type="button" value="button" @click="add">
+            <input type="text" name="" id="" v-model="keyname">
+        </div>
+
+
+
+        <div>
+            <table>
+                    <tr>
+                            <td>id</td>
+                            <td>name</td>
+                            <td>time</td>
+                            <td>operation</td>
+                        </tr>
+                <tr v-for="item in list" ::key="item.id">
+                    <td>{{item.id}}</td>
+                    <td v-text="item.name"></td>
+                    <td>{{item.time}}</td>
+                    <td>
+                        <a href="#"  @click="del1(item.id)">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                id: null,
+                name: null,
+                keyname:null,
+                list: [{
+                        id: 1,
+                        name: 'anxing1',
+                        time: new Date()
+                    },
+                    {
+                        id: 2,
+                        name: 'anxing2',
+                        time: new Date()
+                    },
+                    {
+                        id: 3,
+                        name: 'anxing3',
+                        time: new Date()
+                    },
+                    {
+                        id: 4,
+                        name: 'anxing4',
+                        time: new Date()
+                    }
+                ]
+            },
+            methods: {
+                add() {
+                    this.list.push({
+                        id: this.id,
+                        name: this.name,
+                        time: new Date
+                    })
+                },
+                del(id){
+                    this.list.some((item,i)=>{
+                        if(item.id==id){
+                            this.list.splice(i,1)
+                            return true;
+                        }
+                    })
+                },
+                del1(id){
+                    var index =this.list.findIndex(item=>{
+                        if(item.id=id){
+                            return true;
+                        }
+                    });
+                    this.list.splice(index,1)
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>

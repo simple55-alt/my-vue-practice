@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/css/animate.css">
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="data">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter"
+            v-on:enter-cancelled="enterCancelled" v-on:before-leave="beforeLeave" v-on:leave="leave"
+            v-on:after-leave="afterLeave" v-on:leave-cancelled="leaveCancelled" name="fade"
+            enter-active-class="animated bounceIn" leave-active-class="animated bounceOutDown">
+            <p v-if="show">hello</p>
+        </transition>
+
+        <transition-group  name="fades" enter-active-class="animated bounceIn" leave-active-class="animated bounceOutDown">
+            <p v-if="show" :key="1">hello</p>
+            <p v-if="show" :key="2">hello</p>
+        </transition-group>
+        <ol>
+        <transition-group name="arr" enter-active-class="animated rollIn" leave-active-class="animated hinge">
+                <li  v-for="(item, index) in arr2" v-if="show" :key="index">{{item}}</li>
+        </transition-group>
+        </ol>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                items:['aab','aba','aca','add','ae'],
+                data:''
+            },
+            computed: {
+                arr2:function(){
+                    var temp=[]
+                    this.items.forEach(item => {
+                        if(item.includes(this.data)){
+                            temp.push(item)
+                        }
+                    });
+                    return temp;
+                }
+            },
+            methods: {
+                beforeEnter: function (el) {
+                   console.log("beforeEnter");
+                },
+                // 当与 CSS 结合使用时
+                // 回调函数 done 是可选的
+                enter: function (el, done) {
+                    // ...
+                    console.log("enter")
+                },
+                afterEnter: function (el) {
+                    // ...
+                    console.log("afterEnter");
+                },
+                enterCancelled: function (el) {
+                    // ...
+                    console.log("enterCancelled");
+                },
+
+                // --------
+                // 离开时
+                // --------
+
+                beforeLeave: function (el) {
+                    // ...
+                    console.log("beforeLeave");
+                },
+                // 当与 CSS 结合使用时
+                // 回调函数 done 是可选的
+                leave: function (el, done) {
+                    // ...
+                    // done()
+                    console.log("leave");
+                },
+                afterLeave: function (el) {
+                    // ...
+                    console.log("afterLeave");
+                },
+                // leaveCancelled 只用于 v-show 中
+                leaveCancelled: function (el) {
+                    // ...
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

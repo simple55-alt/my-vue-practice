@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        ages = [19, 20];
+
+        students = [
+            [19, 'Male', '80kg'],
+            [20, 'Female', '50kg'],
+            [20, 'Female', '51kg'],
+            [24, 'Female', '60kg']
+        ]
+
+        var filteredData = students.filter(function (value) {
+            
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === value[0]) {
+                    return true;
+                }
+            }
+            return false
+        }, [18,19]);
+
+        var filtered = students.filter(function (value) {
+            console.log(this);          
+                if (this== value[0]) {
+                    return true;  
+            }
+            return false
+        }, 19);
+
+                    let arr=[11,22,33,43,54]
+                 let newArr=arr.filter(function(value){
+                     console.log(this);
+                    return value%this==0?true:false
+                 },11)
+                   console.log('new :', newArr);
+        console.log('filteredData :', filteredData);
+        console.log(filtered);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const add=(x,y)=>x+y;
+        const p_old={
+            name:'tom',
+            age:18,
+            methods:{
+                test: function(){
+                console.log("methods low")
+            }
+            }
+        }
+        p_old.methods.test()
+
+        const p_es6={
+            name:'tom',
+            age:18,
+            methods:{
+                test(){
+                console.log("methods es6")
+            }
+            }
+        }
+        p_es6.methods.test()
+
+        const t={
+            name:'tom',
+            age:18,
+        }
+       const method_old=function(person){
+            console.log(person.name,person.age)
+       }
+       method_old(t)
+
+       const method_es6=function({name,age}){
+            console.log(name,age)
+       }
+       method_es6(t)
+
+       const method_es6_lambda=({name,age})=>console.log(name,age)
+       method_es6_lambda(t)
+    </script>
+</body>
+</html>

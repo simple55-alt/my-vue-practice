@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button  @click="clickMe($event)">1111</button>
+    <input type="button" value="敲击" @click="clickMe($event)">
+    <a href="http://www.baidu.com" @click.prevent="clickA">111</a>
+    <input type="text" @keydown.f1="print">
+  </div>
+<script>
+  Vue.config.keyCodes={
+    a:65,
+    f1:112
+  }
+  // Vue.config.devtools = true
+  new Vue({
+      el:'#app',
+      data:{
+        
+      },
+      methods: {
+        clickMe(e){
+            console.log(e);
+            console.log(e.target.innerHTML);//原生的dom对象
+        },
+        clickA(){
+          console.log("111");
+        },
+        print(){
+          console.log("你按乐汇城");
+        }
+      },
+  }) 
+</script> 
+</body>
+</html>
